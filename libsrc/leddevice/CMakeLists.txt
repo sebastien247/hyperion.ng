@@ -3,7 +3,7 @@
 SET(CURRENT_HEADER_DIR ${CMAKE_SOURCE_DIR}/include/leddevice)
 SET(CURRENT_SOURCE_DIR ${CMAKE_SOURCE_DIR}/libsrc/leddevice)
 
-find_package(Qt5 COMPONENTS Network SerialPort REQUIRED)
+find_package(Qt5 COMPONENTS Network Bluetooth Test SerialPort REQUIRED)
 
 include_directories(
 	dev_hid
@@ -13,6 +13,7 @@ include_directories(
 	dev_spi
 	dev_rpi_pwm
 	dev_tinker
+	dev_ble
 )
 
 FILE ( GLOB Leddevice_SOURCES
@@ -25,6 +26,8 @@ FILE ( GLOB Leddevice_SOURCES
 	"${CURRENT_SOURCE_DIR}/dev_net/*.cpp"
 	"${CURRENT_SOURCE_DIR}/dev_other/*.h"
 	"${CURRENT_SOURCE_DIR}/dev_other/*.cpp"
+	"${CURRENT_SOURCE_DIR}/dev_ble/*.h"
+	"${CURRENT_SOURCE_DIR}/dev_ble/*.cpp"
 )
 
 if ( ENABLE_OSX OR WIN32 )
@@ -86,7 +89,9 @@ target_link_libraries(leddevice
 	hyperion-utils
 	${CMAKE_THREAD_LIBS_INIT}
 	Qt5::Network
+	Qt5::Bluetooth
 	Qt5::SerialPort
+	Qt5::Test
 	ssdp
 )
 

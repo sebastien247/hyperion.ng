@@ -1,4 +1,4 @@
-﻿#ifndef LEDEVICE_H
+#ifndef LEDEVICE_H
 #define LEDEVICE_H
 
 // qt includes
@@ -262,6 +262,8 @@ signals:
 	/// @param[in] newState The new state of the device
 	///
 	void enableStateChanged(bool newState);
+
+	void servicesUpdated();
 
 protected:
 
