@@ -2,23 +2,33 @@
 	"type":"object",
 	"required":true,
 	"properties":{
-		"macAddress": {
-			"type": "string",
-			"title":"edt_dev_spec_macAddress_title",
-			"propertyOrder" : 1
-		},
-		"output": {
-			"type": "string",
-			"title":"edt_dev_spec_outputPath_title",
-			"default" : "/dev/null",
-			"propertyOrder" : 2
-		},
-		"printTimeStamp": {
-			"type": "boolean",
-			"title":"edt_dev_spec_printTimeStamp_title",
-			"default": false,
-			"access" : "advanced",
-			"propertyOrder" : 3
+		"lights": {
+			"type": "array",
+			"title":"edt_spec_lights_title",
+			"propertyOrder" : 1,
+			"minimum" : 1,
+			"uniqueItems" : true,
+			"items" : {
+				"type" : "object",
+				"title" : "edt_spec_lights_itemtitle",
+				"required" : true,
+				"properties" :
+				{
+					"name" :
+					{
+						"type" : "string",
+						"title" : "edt_spec_lights_name",
+						"minimum" : 0,
+						"propertyOrder" : 1
+					},
+					"macAddress": {
+						"type": "string",
+						"title":"edt_spec_macAddress_title",
+						"propertyOrder" : 2
+					}
+				}
+			},
+			"propertyOrder" : 10
 		},
 		"latchTime": {
 			"type": "integer",
@@ -28,7 +38,7 @@
 			"minimum": 0,
 			"maximum": 1000,
 			"access" : "expert",
-			"propertyOrder" : 4
+			"propertyOrder" : 2
 		},
 		"rewriteTime": {
 			"type": "integer",
@@ -37,7 +47,7 @@
 			"append" : "edt_append_ms",
 			"minimum": 0,
 			"access" : "expert",
-			"propertyOrder" : 5
+			"propertyOrder" : 3
 		}			
 	},
 	"additionalProperties": true

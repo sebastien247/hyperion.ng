@@ -9,11 +9,10 @@
 // Hyperion includes
 #include <leddevice/LedDevice.h>
 #include <QBluetoothDeviceDiscoveryAgent>
-#include <QBluetoothLocalDevice>
-#include <QLowEnergyController>
+#include "HappyLightLight.h"
 
 ///
-/// LedDevice implementation for a lightpack device (http://code.google.com/p/light-pack/)
+/// LedDevice implementation for a HappyLighting, Triones, Apollo Lighting devices (https://play.google.com/store/apps/developer?id=qh-tek)
 ///
 class LedDeviceHappyLight : public LedDevice
 {
@@ -91,41 +90,19 @@ public slots:
 	void deviceScanError(QBluetoothDeviceDiscoveryAgent::Error error);
 	void scanFinished();
 	void scanCanceled();
-	void deviceConnected();
-	void errorReceived(QLowEnergyController::Error error);
-	void deviceDisconnected();
-	void addLowEnergyService(const QBluetoothUuid& serviceUuid);
-	void serviceScanDone();
-	void serviceDetailsDiscovered(QLowEnergyService::ServiceState newState);
 
 private:
+	bool ValidateMacAddress(QString macAddr) const;
 
 	void searchDevices();
-
 	QBluetoothDeviceDiscoveryAgent* discoveryAgent = nullptr;
-	QBluetoothDeviceInfo deviceInfo;
-	QLowEnergyController* controller = nullptr;
-	QList<QLowEnergyService*> services;
-	QList<QLowEnergyCharacteristic> characteristics;
-
-	QLowEnergyService* customLedService = nullptr;
-	QLowEnergyCharacteristic characteristicsLedControl;
 
 	/// write bytes to the device
 	int writeBytes(uint8_t *data, int size);
 
-	void connectToService(const QString& uuid);
-	QString getUuid(QLowEnergyService* service) const;
-
-	QString getName(QLowEnergyCharacteristic& characteristic) const;
-	QString getUuid(const QLowEnergyCharacteristic& characteristic) const;
-	QString getValue(QLowEnergyCharacteristic& characteristic) const;
-	QString getHandle(QLowEnergyCharacteristic& characteristic) const;
-	QString getPermission(QLowEnergyCharacteristic& characteristic) const;
+	QList<HappyLightLight*> lights;
 
 	bool _isConnected = false;
-
-	QString macAddress;
 };
 
 #endif // LEDEVICEHAPPYLIGHT_H
